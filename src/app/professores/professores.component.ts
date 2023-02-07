@@ -7,12 +7,21 @@ import { Component } from '@angular/core';
 })
 export class ProfessoresComponent {
  public titulo = 'Professores';
+ public professorSelecionado!: string;
 
  public professores =[
-  {nome: 'Lauro' } ,
-  {nome: 'Roberto' } ,
-  {nome: 'Ronaldo' } ,
-  {nome: 'Rodrigo' } ,
-  {nome: 'Alexandre' } ,
+  {id: 1, nome: 'Lauro', disciplina:'Matemática' },
+  {id: 2, nome: 'Roberto', disciplina: 'Física'},
+  {id: 3, nome: 'Ronaldo', disciplina: 'Português' },
+  {id: 4, nome: 'Rodrigo', disciplina: 'Inglês'},
+  {id: 5, nome: 'Alexandre', disciplina: 'Programação'}, 
 ];
+
+professorSelect(prof: any){
+  this.professorSelecionado = prof.nome;
+}
+
+voltar(){
+  this.professorSelecionado = '';
+}
 }

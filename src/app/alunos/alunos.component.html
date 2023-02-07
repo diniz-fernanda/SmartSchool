@@ -1,6 +1,48 @@
-<h1>{{titulo}}</h1>
-<ul>
-    <li *ngFor="let aluno of alunos">
-        {{aluno.nome}}
-    </li>
-</ul>
+<div *ngIf="alunoSelecionado">
+  <div class="row">
+    <div class="me-auto">  
+      <app-titulo [titulo]="'Aluno:' + alunoSelecionado"></app-titulo>
+    </div>
+    <div class="mt-1">  
+      <button class="btn btn-warning" (click)="voltar()">Lista de Estudantes</button>
+    </div>
+  </div>
+
+  <form >
+    <div class="form-froup">
+      <label for="formGroupExampleInput">Nome</label>
+      <input type="text" class="form-control" >
+    </div>
+    <div class="form-froup">
+      <label for="formGroupExampleInput">Sobrenome</label>
+      <input type="text" class="form-control" >
+    </div>
+    <div class="form-froup">
+      <label for="formGroupExampleInput">Telefone</label>
+      <input type="text" class="form-control" >
+    </div>
+  </form>
+</div>
+
+<div *ngIf="!alunoSelecionado">
+  <app-titulo [titulo]="titulo"></app-titulo>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Sobrenome</th>
+        <th scope="col">Telefone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let aluno of alunos" style="cursor: pointer;" (click)="alunoSelect(aluno)">
+        <th scope="row">{{aluno.id}}</th>
+        <td>{{aluno.nome}}</td>
+        <td>{{aluno.sobrenome}}</td>
+        <td>{{aluno.telefone}}</td>
+      </tr>
+    </tbody>
+  </table></div>
+
