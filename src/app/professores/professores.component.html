@@ -1,21 +1,21 @@
 <div *ngIf="professorSelecionado">
   <div class="row">
     <div class="me-auto">  
-      <app-titulo [titulo]="'Professor: ' + professorSelecionado"></app-titulo>
+      <app-titulo [titulo]="'Professor: ' + professorSelecionado.id"></app-titulo>
     </div>
     <div class="mt-1">  
-      <button class="btn btn-warning" (click)="voltar()">Lista de Professores</button>
+      <button class="btn btn-sm btn-warning" (click)="voltar()">Lista de Professores</button>
     </div>
   </div>
 
   <form >
     <div class="form-froup">
       <label for="formGroupExampleInput">Nome</label>
-      <input type="text" class="form-control" >
+      <input type="text" value="{{professorSelecionado.nome}}" class="form-control" >
     </div>
     <div class="form-froup">
       <label for="formGroupExampleInput">Disciplina</label>
-      <input type="text" class="form-control" >
+      <input type="text" value="{{professorSelecionado.disciplina}}" class="form-control" >
     </div>
   </form>
 </div>
@@ -25,18 +25,36 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th scope="col">Visualizar</th>
         <th scope="col">#</th>
         <th scope="col">Nome</th>
         <th scope="col">Disciplina</th>
+        <th scope="col">Opções</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let prof of professores" style="cursor: pointer;"
-      (click)="professorSelect(prof)">
-        <th scope="row">{{prof.id}}</th>
+      <tr *ngFor="let prof of professores" style="cursor: pointer;">
+        <td><button (click)="professorSelect(prof)" class="text-dark btn btn-sm btn btn-outline-warning">Detalhe</button ></td>
+        <td scope="row">{{prof.id}}</td>
         <td>{{prof.nome}}</td>
         <td>{{prof.disciplina}}</td>
+        <td>
+          <div class="btn-group">
+            <div class="btn btn-sm btn-outline-primary" (click)="openModal(template)">Alunos</div>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
+ 
+<ng-template #template>
+  <div class="modal-body">
+    <app-alunos></app-alunos>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      Fechar
+    </button>
+  </div>
+</ng-template>

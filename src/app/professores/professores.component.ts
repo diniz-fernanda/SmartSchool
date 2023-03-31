@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
+import { Professor } from '../models/Professor';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-professores',
@@ -6,8 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./professores.component.css']
 })
 export class ProfessoresComponent {
+
+ public modalRef?: BsModalRef;
  public titulo = 'Professores';
- public professorSelecionado!: string;
+ public professorSelecionado!: Professor;
 
  public professores =[
   {id: 1, nome: 'Lauro', disciplina:'Matemática' },
@@ -17,11 +21,16 @@ export class ProfessoresComponent {
   {id: 5, nome: 'Alexandre', disciplina: 'Programação'}, 
 ];
 
-professorSelect(prof: any){
-  this.professorSelecionado = prof.nome;
-}
+  constructor(private modalService: BsModalService) {}
+ 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+  professorSelect(professor: Professor){
+    this.professorSelecionado = professor;
+  }
 
-voltar(){
-  this.professorSelecionado = '';
-}
+  voltar(){
+    this.professorSelecionado = null as any;
+  }
 }
